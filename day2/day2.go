@@ -96,3 +96,24 @@ func Sum(numbers []int) int {
 	}
 	return result
 }
+
+func Dumb(input io.Reader) int {
+	scores := map[string]int{
+		"A X": 4,
+		"B X": 1,
+		"C X": 7,
+		"A Y": 8,
+		"B Y": 5,
+		"C Y": 2,
+		"A Z": 3,
+		"B Z": 9,
+		"C Z": 6,
+	}
+
+	scanner := bufio.NewScanner(input)
+	sum := 0
+	for scanner.Scan() {
+		sum += scores[scanner.Text()]
+	}
+	return sum
+}

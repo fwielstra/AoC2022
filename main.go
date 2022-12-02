@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/fwielstra/AoC2022/day1"
 	"github.com/fwielstra/AoC2022/day2"
@@ -57,7 +58,20 @@ func runDay2(args []string) {
 		os.Exit(1)
 	}
 
+	start := time.Now()
 	scores := day2.GetScores(file)
 	sum := day2.Sum(scores)
-	fmt.Printf("Result for day 2: %d\n", sum)
+	elapsed := time.Since(start)
+	fmt.Printf("Result for day 2: %d in %s\n", sum, elapsed)
+
+	file.Close()
+
+	// simple approach
+	file, _ = os.Open(filename)
+	start = time.Now()
+	dumb := day2.Dumb(file)
+	elapsed = time.Since(start)
+	fmt.Printf("Result for day 2 dumb: %d in %s\n", dumb, elapsed)
+
+	file.Close()
 }

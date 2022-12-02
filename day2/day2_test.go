@@ -90,3 +90,16 @@ func TestScore(t *testing.T) {
 		t.Errorf("Score(): expected 3 for a loss with scissors, got %d", loss.Score())
 	}
 }
+
+func TestDay2Simple(t *testing.T) {
+	input := `A Y
+B X
+C Z
+	`
+
+	r := strings.NewReader(input)
+	sum := Dumb(r)
+	if sum != 15 {
+		t.Errorf("Dumb(): expected 15, got %d", sum)
+	}
+}
