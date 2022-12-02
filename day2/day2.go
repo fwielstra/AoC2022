@@ -48,6 +48,51 @@ func (r Round) Score() int {
 	return score + Scores[r.me]
 }
 
+func (r Round) getWinningMove() RPS {
+	switch r.opponent {
+	case Rock:
+		return Paper
+	case Paper:
+		return Scissors
+	case Scissors:
+		return Rock
+	}
+
+	return -1 // error
+}
+
+func (r Round) getLosingMove() RPS {
+	switch r.opponent {
+	case Rock:
+		return Scissors
+	case Paper:
+		return Rock
+	case Scissors:
+		return Paper
+	}
+
+	return -1 // error
+}
+
+func (r Round) ScoreWithOutcome() int {
+	if r.me == 0 {
+		// lose
+		return Scores[r.getLosingMove()]
+	}
+
+	if r.me == 1 {
+		// draw
+		return 3 + Scores[r.opponent]
+	}
+
+	if r.me == 2 {
+		// win
+		return 6 + Scores[r.getWinningMove()]
+	}
+
+	return 0 // should not happen
+}
+
 var mapping = map[string]RPS{
 	"A": Rock,
 	"X": Rock,
@@ -84,6 +129,16 @@ func GetScores(input io.Reader) []int {
 	scores := make([]int, len(rounds))
 	for i, r := range rounds {
 		scores[i] = r.Score()
+	}
+
+	return scores
+}
+
+func GetScoresPartTwo(input io.Reader) []int {
+	rounds := parseRounds(input)
+	scores := make([]int, len(rounds))
+	for i, r := range rounds {
+		scores[i] = r.ScoreWithOutcome()
 	}
 
 	return scores

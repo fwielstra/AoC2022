@@ -73,5 +73,14 @@ func runDay2(args []string) {
 	elapsed = time.Since(start)
 	fmt.Printf("Result for day 2 dumb: %d in %s\n", dumb, elapsed)
 
+	// part 2
+
+	file, _ = os.Open(filename)
+	start = time.Now()
+	scores = day2.GetScoresPartTwo(file)
+	sum = day2.Sum(scores)
+	elapsed = time.Since(start)
+	fmt.Printf("Result for day 2 part 2: %d in %s\n", sum, elapsed)
+
 	file.Close()
 }

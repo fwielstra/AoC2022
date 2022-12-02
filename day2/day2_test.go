@@ -103,3 +103,28 @@ C Z
 		t.Errorf("Dumb(): expected 15, got %d", sum)
 	}
 }
+
+func TestPart2(t *testing.T) {
+	input := `A Y
+B X
+C Z
+	`
+
+	r := strings.NewReader(input)
+	result := GetScoresPartTwo(r)
+
+	if result[0] != 4 {
+		t.Errorf("GetScoresPartTwo(): expected result 0 to be 4, got %d", result[0])
+	}
+	if result[1] != 1 {
+		t.Errorf("GetScoresPartTwo(): expected result 1 to be 1, got %d", result[1])
+	}
+	if result[2] != 7 {
+		t.Errorf("GetScoresPartTwo(): expected result 2 to be 7, got %d", result[2])
+	}
+
+	sum := Sum(result)
+	if sum != 12 {
+		t.Errorf("GetScoresPartTwo(): expected 15, got %d", sum)
+	}
+}
