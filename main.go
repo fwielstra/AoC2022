@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/fwielstra/AoC2022/day1"
+	"github.com/fwielstra/AoC2022/day2"
+	"github.com/fwielstra/AoC2022/day3"
 	"os"
 	"strconv"
 	"time"
-
-	"github.com/fwielstra/AoC2022/day1"
-	"github.com/fwielstra/AoC2022/day2"
 )
 
 func main() {
@@ -19,6 +19,10 @@ func main() {
 		runDay1(args)
 	case "day2":
 		runDay2(args)
+	case "day3":
+		runDay3(args)
+	default:
+		fmt.Printf("unrecognized day %s\n", day)
 	}
 }
 
@@ -83,4 +87,15 @@ func runDay2(args []string) {
 	fmt.Printf("Result for day 2 part 2: %d in %s\n", sum, elapsed)
 
 	file.Close()
+}
+
+func runDay3(args []string) {
+	filename := args[0]
+	file, _ := os.Open(filename)
+	defer file.Close()
+
+	start := time.Now()
+	sum := day3.SumCompartiments(file)
+	elapsed := time.Since(start)
+	fmt.Printf("Result for day 1 part 1: %d in %s\n", sum, elapsed)
 }
