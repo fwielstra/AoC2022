@@ -18,3 +18,17 @@ CrZsJsPPZsGzwwsLwLmpwMDw`
 		t.Errorf("SumCompartiments(): expected 157, got %d", result)
 	}
 }
+
+func TestDay3PartTwo(t *testing.T) {
+	input := `vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw`
+
+	result := SumBadges(strings.NewReader(input))
+	if result != 70 {
+		t.Errorf("SumBadges(): expected 70, got %d", result)
+	}
+}

@@ -92,10 +92,17 @@ func runDay2(args []string) {
 func runDay3(args []string) {
 	filename := args[0]
 	file, _ := os.Open(filename)
-	defer file.Close()
 
 	start := time.Now()
 	sum := day3.SumCompartiments(file)
 	elapsed := time.Since(start)
 	fmt.Printf("Result for day 1 part 1: %d in %s\n", sum, elapsed)
+	file.Close()
+
+	file, _ = os.Open(filename)
+	start = time.Now()
+	sum = day3.SumBadges(file)
+	elapsed = time.Since(start)
+	fmt.Printf("Result for day 1 part 2: %d in %s\n", sum, elapsed)
+	file.Close()
 }
