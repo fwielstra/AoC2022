@@ -5,6 +5,7 @@ import (
 	"github.com/fwielstra/AoC2022/day1"
 	"github.com/fwielstra/AoC2022/day2"
 	"github.com/fwielstra/AoC2022/day3"
+	"github.com/fwielstra/AoC2022/day4"
 	"io"
 	"os"
 	"strconv"
@@ -29,6 +30,8 @@ func main() {
 		runDay2(filename)
 	case "day3":
 		runDay3(filename)
+	case "day4":
+		runDay4(filename)
 	default:
 		fmt.Printf("unrecognized day %s\n", day)
 	}
@@ -86,11 +89,18 @@ func runDay2(filename string) {
 func runDay3(filename string) {
 	withFile(filename, func(r io.Reader) {
 		sum := day3.SumCompartiments(r)
-		fmt.Printf("Result for day 1 part 1: %d\n", sum)
+		fmt.Printf("Result for day 3 part 1: %d\n", sum)
 	})
 
 	withFile(filename, func(r io.Reader) {
 		sum := day3.SumBadges(r)
-		fmt.Printf("Result for day 1 part 2: %d\n", sum)
+		fmt.Printf("Result for day 3 part 2: %d\n", sum)
+	})
+}
+
+func runDay4(filename string) {
+	withFile(filename, func(r io.Reader) {
+		pairs := day4.CountFullContains(r)
+		fmt.Printf("Resullt for day 4 part 1: %d\n", pairs)
 	})
 }
