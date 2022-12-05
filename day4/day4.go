@@ -2,17 +2,11 @@ package day4
 
 import (
 	"bufio"
+	"github.com/fwielstra/AoC2022/math"
 	"io"
 	"strconv"
 	"strings"
 )
-
-func abs(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
-}
 
 type assignment struct {
 	from int
@@ -20,7 +14,7 @@ type assignment struct {
 }
 
 func (a assignment) length() int {
-	return abs(a.from - a.to)
+	return math.Abs(a.from - a.to)
 }
 
 type assignmentSet struct {
@@ -28,7 +22,7 @@ type assignmentSet struct {
 	other assignment
 }
 
-func (s assignmentSet) hasOverlap() bool {
+func (s assignmentSet) hasFullOverlap() bool {
 	// check if the smallest set fits in the larger set.
 	// Doesn't matter if they're the same length.
 	biggest, smallest := s.one, s.other
@@ -36,6 +30,14 @@ func (s assignmentSet) hasOverlap() bool {
 		biggest, smallest = smallest, biggest
 	}
 	return smallest.from >= biggest.from && smallest.to <= biggest.to
+}
+
+func (s assignmentSet) hasOverlap() bool {
+	// I cheated: https://stackoverflow.com/a/41352616/204840
+	res := (s.other.to-s.one.from)*(s.one.to-s.other.from) >= 0
+	//fmt.Printf("one: %+v, other: %+v, overlap %t\n", s.one, s.other, res)
+	return res
+
 }
 
 func parseAssignment(s string) assignment {
@@ -58,8 +60,21 @@ func parseAssignmentSet(s string) assignmentSet {
 	}
 }
 
-// TODO: only check if the smaller range fits in the larger
 func CountFullContains(input io.Reader) int {
+	scanner := bufio.NewScanner(input)
+	sum := 0
+	for scanner.Scan() {
+		line := scanner.Text()
+		set := parseAssignmentSet(line)
+		if set.hasFullOverlap() {
+			sum++
+		}
+	}
+
+	return sum
+}
+
+func CountOverlaps(input io.Reader) int {
 	scanner := bufio.NewScanner(input)
 	sum := 0
 	for scanner.Scan() {

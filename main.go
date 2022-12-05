@@ -103,4 +103,9 @@ func runDay4(filename string) {
 		pairs := day4.CountFullContains(r)
 		fmt.Printf("Resullt for day 4 part 1: %d\n", pairs)
 	})
+
+	withFile(filename, func(r io.Reader) {
+		overlaps := day4.CountOverlaps(r)
+		fmt.Printf("Resullt for day 4 part 2: %d\n", overlaps)
+	})
 }
