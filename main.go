@@ -6,6 +6,7 @@ import (
 	"github.com/fwielstra/AoC2022/day2"
 	"github.com/fwielstra/AoC2022/day3"
 	"github.com/fwielstra/AoC2022/day4"
+	"github.com/fwielstra/AoC2022/day5"
 	"io"
 	"os"
 	"strconv"
@@ -32,6 +33,8 @@ func main() {
 		runDay3(filename)
 	case "day4":
 		runDay4(filename)
+	case "day5":
+		runDay5(filename)
 	default:
 		fmt.Printf("unrecognized day %s\n", day)
 	}
@@ -107,5 +110,12 @@ func runDay4(filename string) {
 	withFile(filename, func(r io.Reader) {
 		overlaps := day4.CountOverlaps(r)
 		fmt.Printf("Resullt for day 4 part 2: %d\n", overlaps)
+	})
+}
+
+func runDay5(filename string) {
+	withFile(filename, func(r io.Reader) {
+		result := day5.Process(r)
+		fmt.Printf("Resullt for day 5 part 1: %s\n", result)
 	})
 }
