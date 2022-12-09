@@ -7,6 +7,7 @@ import (
 	"github.com/fwielstra/AoC2022/day3"
 	"github.com/fwielstra/AoC2022/day4"
 	"github.com/fwielstra/AoC2022/day5"
+	"github.com/fwielstra/AoC2022/day6"
 	"io"
 	"os"
 	"strconv"
@@ -35,6 +36,8 @@ func main() {
 		runDay4(filename)
 	case "day5":
 		runDay5(filename)
+	case "day6":
+		runDay6(filename)
 	default:
 		fmt.Printf("unrecognized day %s\n", day)
 	}
@@ -116,6 +119,25 @@ func runDay4(filename string) {
 func runDay5(filename string) {
 	withFile(filename, func(r io.Reader) {
 		result := day5.Process(r)
-		fmt.Printf("Resullt for day 5 part 1: %s\n", result)
+		fmt.Printf("Result for day 5 part 1: %s\n", result)
+	})
+
+	withFile(filename, func(r io.Reader) {
+		result := day5.Process9001(r)
+		fmt.Printf("Result for day 5 part 2: %s\n", result)
+	})
+}
+
+func runDay6(filename string) {
+	withFile(filename, func(r io.Reader) {
+		str, _ := io.ReadAll(r)
+		result := day6.FindStartMarker(string(str))
+		fmt.Printf("Result for day 6 part 1: %d\n", result)
+	})
+
+	withFile(filename, func(r io.Reader) {
+		str, _ := io.ReadAll(r)
+		result := day6.FindStartMessage(string(str))
+		fmt.Printf("Result for day 6 part 2: %d\n", result)
 	})
 }

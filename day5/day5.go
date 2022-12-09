@@ -20,12 +20,20 @@ func push(s stack, r rune) stack {
 	return append(s, r)
 }
 
+func pushn(s stack, r []rune) stack {
+	return append(s, r...)
+}
+
 func prepend(s stack, r rune) stack {
 	return append(stack{r}, s...)
 }
 
 func pop(s stack) (stack, rune) {
 	return s[:len(s)-1], s[len(s)-1]
+}
+
+func popn(s stack, n int) (stack, []rune) {
+	return s[:len(s)-n], s[len(s)-n:]
 }
 
 type move struct {
@@ -58,12 +66,20 @@ type State struct {
 	stacks []stack
 }
 
+// CrateMover 9000 carries one crate at a time
 func (s *State) applyMove(m move) {
 	for i := 0; i < m.num; i++ {
 		var r rune
 		s.stacks[m.from], r = pop(s.stacks[m.from])
 		s.stacks[m.to] = push(s.stacks[m.to], r)
 	}
+}
+
+// CrateMover 9001 moves a stack of crates at a time
+func (s *State) applyMoveCrateMover9001(m move) {
+	var r []rune
+	s.stacks[m.from], r = popn(s.stacks[m.from], m.num)
+	s.stacks[m.to] = pushn(s.stacks[m.to], r)
 }
 
 func isAlpha(r rune) bool {
@@ -110,14 +126,9 @@ func parse(input io.Reader) (State, []move) {
 	return State{stacks}, moves
 }
 
-func Process(input io.Reader) string {
-	inputState, moves := parse(input)
-	for _, m := range moves {
-		inputState.applyMove(m)
-	}
-
+func getTopCrates(s State) string {
 	result := ""
-	for _, s := range inputState.stacks {
+	for _, s := range s.stacks {
 		// skip empty stacks
 		if len(s) == 0 {
 			continue
@@ -125,4 +136,22 @@ func Process(input io.Reader) string {
 		result += string(s[len(s)-1])
 	}
 	return result
+}
+
+func Process(input io.Reader) string {
+	state, moves := parse(input)
+	for _, m := range moves {
+		state.applyMove(m)
+	}
+
+	return getTopCrates(state)
+}
+
+func Process9001(input io.Reader) string {
+	state, moves := parse(input)
+	for _, m := range moves {
+		state.applyMoveCrateMover9001(m)
+	}
+
+	return getTopCrates(state)
 }
