@@ -5,17 +5,17 @@ type empty = struct{}
 var flag = empty{}
 
 func FindUniqueChunk(input string, size int) int {
-l:
 	for i := 0; i < len(input)-size-1; i++ {
 		chunk := input[i : i+size]
-		// a map of empty structs is the most memory-efficient set in go
+		// A map of empty structs is the most memory-efficient set in go
 		m := map[rune]empty{}
 		for _, r := range chunk {
-			if _, isset := m[r]; isset {
-				// chunk is not unique
-				continue l
-			}
 			m[r] = flag
+		}
+
+		// chunk is not unique
+		if len(m) != size {
+			continue
 		}
 		return i + size
 	}
